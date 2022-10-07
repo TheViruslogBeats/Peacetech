@@ -239,53 +239,53 @@ def get_wallet_history(public_key: str, page: int = 0, offset: int = 20, sort='a
 
 # private_key, public_key = gen_wallet()
 
-private_key = '30896a066123d16109d9a97e1482fab40c04d37406154308f49e1c50633e444f'
-public_key = '0x7D3D3e00d5ba56220A388aE97B61e5F1Cc39D390'
-
-receiver = '0xE85de2FA515433f7c17314191453a7a2ac2aBEe6'
-receiver_private_key = '13ce2cc871b9a4eb91437f9e126a34d875e2a0a9b8e788f181987b3b6adf673c'
-
-print('Private key:', private_key)
-print('Public key:', public_key)
-
-balance = get_wallet_balance(public_key)
-print(f'{public_key} has {balance.get("maticAmount")} MATIC')
-print(f'{public_key} has {balance.get("coinsAmount")} rubles')
-
-trx_hash = transfer_matic(private_key, receiver, 0.000001)
-print('Transaction hash:', trx_hash)
-status = get_trx_status(trx_hash)
-print('Transaction status:', status)
-
-# trx_hash = '0xb3aaa5ddd47bb146f4bf3fa75357ab0cdf8de7b01febe91ee6330d15b8748207'
+# private_key = '30896a066123d16109d9a97e1482fab40c04d37406154308f49e1c50633e444f'
+# public_key = '0x7D3D3e00d5ba56220A388aE97B61e5F1Cc39D390'
+#
+# receiver = '0xE85de2FA515433f7c17314191453a7a2ac2aBEe6'
+# receiver_private_key = '13ce2cc871b9a4eb91437f9e126a34d875e2a0a9b8e788f181987b3b6adf673c'
+#
+# print('Private key:', private_key)
+# print('Public key:', public_key)
+#
+# balance = get_wallet_balance(public_key)
+# print(f'{public_key} has {balance.get("maticAmount")} MATIC')
+# print(f'{public_key} has {balance.get("coinsAmount")} rubles')
+#
+# trx_hash = transfer_matic(private_key, receiver, 0.000001)
+# print('Transaction hash:', trx_hash)
 # status = get_trx_status(trx_hash)
 # print('Transaction status:', status)
-
-trx_hash = transfer_ruble(receiver_private_key, public_key, 1)
-print('Transaction hash:', trx_hash)
-status = get_trx_status(trx_hash)
-print('Transaction status:', status)
-
-# trx_hash = mint_nft(
-#     to_public_key=public_key,
-#     amount=3,
-#     uri='https://lh3.googleusercontent.com/tNpcMqMfrcvWjtSkEiAScBP2-1gswh3bgffbz4_yuzlfk7ierfl7upiwqx1rk9gfxufilxkju2p937bahkgzcr8go43ngrhp0iexkg'
-# )
-trx_hash = '0x2418df36da5f5c2a13deb300cf45a8b3919acb2a82b9dffd53dbdf3c4919bbe9'
-print('Mint transaction:', trx_hash)
-mint_status = get_mint_status(trx_hash)
-print('Mint status:', mint_status)
-
-nfts = get_wallet_nft_balance(public_key)
-print(f'{public_key} has {nfts} nfts')
-
-token_id = 357
-nft_info = get_nft_info(token_id)
-print(f'NFT info {nft_info}')
-
-# trx_hash = transfer_nft(private_key, receiver, token_id)
-trx_hash = '0x825e5b4047757ab2a879da207db1b2e501d740e488d34eb1e6b43ac7b599a22c'
-print('NFT transfer transaction:', trx_hash)
-
-status = get_trx_status('0x825e5b4047757ab2a879da207db1b2e501d740e488d34eb1e6b43ac7b599a22c')
-print('NFT transfer status:', status)
+#
+# # trx_hash = '0xb3aaa5ddd47bb146f4bf3fa75357ab0cdf8de7b01febe91ee6330d15b8748207'
+# # status = get_trx_status(trx_hash)
+# # print('Transaction status:', status)
+#
+# trx_hash = transfer_ruble(receiver_private_key, public_key, 1)
+# print('Transaction hash:', trx_hash)
+# status = get_trx_status(trx_hash)
+# print('Transaction status:', status)
+#
+# # trx_hash = mint_nft(
+# #     to_public_key=public_key,
+# #     amount=3,
+# #     uri='https://lh3.googleusercontent.com/tNpcMqMfrcvWjtSkEiAScBP2-1gswh3bgffbz4_yuzlfk7ierfl7upiwqx1rk9gfxufilxkju2p937bahkgzcr8go43ngrhp0iexkg'
+# # )
+# trx_hash = '0x2418df36da5f5c2a13deb300cf45a8b3919acb2a82b9dffd53dbdf3c4919bbe9'
+# print('Mint transaction:', trx_hash)
+# mint_status = get_mint_status(trx_hash)
+# print('Mint status:', mint_status)
+#
+# nfts = get_wallet_nft_balance(public_key)
+# print(f'{public_key} has {nfts} nfts')
+#
+# token_id = 357
+# nft_info = get_nft_info(token_id)
+# print(f'NFT info {nft_info}')
+#
+# # trx_hash = transfer_nft(private_key, receiver, token_id)
+# trx_hash = '0x825e5b4047757ab2a879da207db1b2e501d740e488d34eb1e6b43ac7b599a22c'
+# print('NFT transfer transaction:', trx_hash)
+#
+# status = get_trx_status('0x825e5b4047757ab2a879da207db1b2e501d740e488d34eb1e6b43ac7b599a22c')
+# print('NFT transfer status:', status)

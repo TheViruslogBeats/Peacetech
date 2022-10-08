@@ -19,10 +19,38 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
             ctx,
         ),
     )
+    app.router.add_get(
+        '/employee_info/{data}',
+        wrap_handler(
+            handles.employee_info,
+            ctx,
+        ),
+    )
+    app.router.add_post(
+        '/transfer_ruble',
+        wrap_handler(
+            handles.transfer_ruble,
+            ctx,
+        ),
+    )
+    app.router.add_post(
+        '/transfer_nft',
+        wrap_handler(
+            handles.transfer_nft,
+            ctx,
+        ),
+    )
     app.router.add_post(
         '/get_employee_achievements',
         wrap_handler(
             handles.get_employee_achievements,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_wallet_nft_balance/{data}',
+        wrap_handler(
+            handles.get_wallet_nft_balance,
             ctx,
         ),
     )
@@ -77,6 +105,13 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     )
     app.router.add_get(
         '/get_wallet_balance/{data}',
+        wrap_handler(
+            handles.get_wallet_balance,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_wallet_history/{data}',
         wrap_handler(
             handles.get_wallet_balance,
             ctx,

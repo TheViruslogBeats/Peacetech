@@ -11,6 +11,32 @@ async def authentication(context: AppContext, login, password):
         return False
 
 
+async def get_employee_info(context: AppContext, login):
+    script = f"select name, surname, lastname from employee where login = '{login}'"
+    employee = (await context.db.fetch(script))[0]
+    return {'name': employee['name'], 'surname': employee['surname'], 'lastname': employee['lastname']}
+
+
+async def get_public_key(context: AppContext, login):
+    script = f"select public_key from employee where login = '{login}'"
+    employee = (await context.db.fetch(script))[0]
+    return {'public_key': employee['public_key']}
+
+
+async def get_private_key(context: AppContext, login):
+    script = f"select private_key from employee where login = '{login}'"
+    employee = (await context.db.fetch(script))[0]
+    return {'private_key': employee['private_key']}
+
+
+async def employee_has_wallet(context: AppContext, login):
+    script = f"select private_key, public_key from employee where login = '{login}'"
+    if len(await context.db.fetch(script)) > 0:
+        return True
+    else:
+        return False
+
+
 async def get_employee_achievements(context: AppContext, login):
     achievements = await find_employee_achievements(context, login)
     answer = {}
@@ -149,7 +175,7 @@ async def get_count_of_employee_tasks(context: AppContext, login):
                  where employee_login = '{login}'
                  group by employee_login"""
     count = await context.db.fetch(script)
-    return {'count' : count if len(count) > 0 else 0}
+    return {'count': count if len(count) > 0 else 0}
 
 
 async def find_employee_achievements(context: AppContext, login):

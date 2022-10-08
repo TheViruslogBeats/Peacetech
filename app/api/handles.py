@@ -53,9 +53,124 @@ async def get_employee_achievements(request: web.Request, context: AppContext) -
         if data is None:
             raise KeyError
         login = data['login']
-        if dbo.employee_in_database(context, login):
+        if await dbo.employee_in_database(context, login):
 
             return web.json_response(await dbo.get_employee_achievements(context, login), status=200)
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def transfer_ruble(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        from_login = request.match_info['from_login']
+        to_login = request.match_info['to_login']
+        amount = request.match_info['amount']
+        if from_login is None or to_login is None or amount is None:
+            raise KeyError
+        if await dbo.employee_in_database(context, from_login) and await dbo.employee_in_database(context, to_login):
+            if await dbo.employee_has_wallet(context, from_login) and await dbo.employee_has_wallet(context, to_login):
+                from_private_key = await dbo.get_private_key(context, from_login)
+                to_public_key = await dbo.get_public_key(context, to_login)
+                blockchain_api.transfer_ruble(from_private_key, to_public_key, amount)
+                return web.json_response(
+                    {
+                        "code": 200,
+                        "message": "Transaction was successful"
+                    },
+                    status=200
+                )
+            return web.json_response(
+                {
+                    "code": 400,
+                    "message": "Employee hasn't wallet"
+                },
+                status=400
+            )
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def transfer_nft(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        from_login = request.match_info['from_login']
+        to_login = request.match_info['to_login']
+        token_id = request.match_info['token_id']
+        if from_login is None or to_login is None or token_id is None:
+            raise KeyError
+        if await dbo.employee_in_database(context, from_login) and await dbo.employee_in_database(context, to_login):
+            if await dbo.employee_has_wallet(context, from_login) and await dbo.employee_has_wallet(context, to_login):
+                from_private_key = await dbo.get_private_key(context, from_login)
+                to_public_key = await dbo.get_public_key(context, to_login)
+                blockchain_api.transfer_nft(from_private_key, to_public_key, token_id)
+                return web.json_response(
+                    {
+                        "code": 200,
+                        "message": "Transaction was successful"
+                    },
+                    status=200
+                )
+            return web.json_response(
+                {
+                    "code": 400,
+                    "message": "Employee hasn't wallet"
+                },
+                status=400
+            )
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def employee_info(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if login is None:
+            raise KeyError
+        if await dbo.employee_in_database(context, login):
+
+            return web.json_response(await dbo.get_employee_info(context, login), status=200)
 
         else:
             return web.json_response(
@@ -197,9 +312,65 @@ async def get_wallet_balance(request: web.Request, context: AppContext) -> web.R
     try:
         login = request.match_info['data']
         if await dbo.employee_in_database(context, login):
-
+            public_key = await dbo.get_public_key(context, login)
             return web.json_response(
-                blockchain_api.get_wallet_balance(login),
+                blockchain_api.get_wallet_balance(public_key),
+                status=200
+            )
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def get_wallet_history(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if await dbo.employee_in_database(context, login):
+            public_key = await dbo.get_public_key(context, login)
+            return web.json_response(
+                blockchain_api.get_wallet_history(public_key),
+                status=200
+            )
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def get_wallet_nft_balance(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if await dbo.employee_in_database(context, login):
+            public_key = await dbo.get_public_key(context, login)
+            return web.json_response(
+                blockchain_api.get_wallet_nft_balance(public_key),
                 status=200
             )
 

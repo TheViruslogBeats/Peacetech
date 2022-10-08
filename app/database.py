@@ -34,8 +34,7 @@ async def get_all_rating(context: AppContext):
                  group by e.login
                  order by sum(a.achieve_points) desc
              """
-    data = await context.db.fetch(script)
-    rating = data[0] if len(data) > 0 else []
+    rating = await context.db.fetch(script)
 
     answer = {}
     place = 0
@@ -57,9 +56,7 @@ async def get_department_rating(context: AppContext, department):
                  group by e.login
                  order by sum(a.achieve_points) desc
              """
-    data = await context.db.fetch(script)
-    rating = data[0] if len(data) > 0 else []
-
+    rating = await context.db.fetch(script)
     answer = {}
     place = 0
     if len(rating) > 0:
@@ -80,8 +77,7 @@ async def get_personal_rating(context: AppContext, login):
                  order by sum(a.achieve_points) desc
              """
 
-    data = await context.db.fetch(script)
-    rating = data[0] if len(data) > 0 else []
+    rating = await context.db.fetch(script)
     answer = {}
     place = 0
     if len(rating) > 0:
@@ -126,6 +122,34 @@ async def get_wallet(context: AppContext, login):
     data = await context.db.fetch(script)
     wallet = data[0] if len(data) > 0 else []
     return {'publicKey': wallet[0], 'privateKey': wallet[1]}
+
+
+async def get_employee_tasks(context: AppContext, login):
+    script = f"""select id, description, award, administrator_login, progress from task 
+                 where employee_login = '{login}'"""
+    tasks = await context.db.fetch(script)
+    answer = {}
+    if len(tasks) > 0:
+        for task in tasks:
+            answer.update(
+                {
+                    task['id']: {
+                        'description': task['description'],
+                        'award': task['award'],
+                        'administrator_login': task['administrator_login'],
+                        'progress': task['progress']
+                    }
+                }
+            )
+    return answer
+
+
+async def get_count_of_employee_tasks(context: AppContext, login):
+    script = f"""select count(id) from task 
+                 where employee_login = '{login}'
+                 group by employee_login"""
+    count = await context.db.fetch(script)
+    return {'count' : count if len(count) > 0 else 0}
 
 
 async def find_employee_achievements(context: AppContext, login):

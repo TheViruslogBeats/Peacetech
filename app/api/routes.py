@@ -1,7 +1,7 @@
 from aiohttp import web
 from app.api import handles
 from app.context import AppContext
-
+import aiohttp_cors
 
 # Нужно для того чтобы сразу принимать и запрос и контекст
 def wrap_handler(handler, context):
@@ -75,6 +75,40 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
             ctx,
         ),
     )
+    app.router.add_get(
+        '/get_wallet_balance/{data}',
+        wrap_handler(
+            handles.get_wallet_balance,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_tasks/{data}',
+        wrap_handler(
+            handles.get_tasks,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_count_of_tasks/{data}',
+        wrap_handler(
+            handles.get_count_of_tasks,
+            ctx,
+        ),
+    )
+    # get_wallet_balance
+    # Configure default CORS settings.
+    cors = aiohttp_cors.setup(app, defaults={
+        "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers="*",
+            allow_headers="*",
+        )
+    })
+
+    # Configure CORS on all routes.
+    for route in list(app.router.routes()):
+        cors.add(route)
     """
     app.router.add_post(
         '/imports',

@@ -75,6 +75,60 @@ async def get_employee_achievements(request: web.Request, context: AppContext) -
         )
 
 
+async def get_tasks(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if login is None:
+            raise KeyError
+        if await dbo.employee_in_database(context, login):
+
+            return web.json_response(await dbo.get_employee_tasks(context, login), status=200)
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
+async def get_count_of_tasks(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if login is None:
+            raise KeyError
+        if dbo.employee_in_database(context, login):
+
+            return web.json_response(await dbo.get_count_of_employee_tasks(context, login), status=200)
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
 async def create_wallet(request: web.Request, context: AppContext) -> web.Response:
     try:
         login = request.match_info['data']
@@ -139,13 +193,41 @@ async def get_wallet(request: web.Request, context: AppContext) -> web.Response:
         )
 
 
+async def get_wallet_balance(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if await dbo.employee_in_database(context, login):
+
+            return web.json_response(
+                blockchain_api.get_wallet_balance(login),
+                status=200
+            )
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
 async def get_employee_role(request: web.Request, context: AppContext) -> web.Response:
     try:
-        data = request.match_info['data']
-        login = data['login']
-        if dbo.employee_in_database(context, login):
+        login = request.match_info['data']
+        print(login)
+        if await dbo.employee_in_database(context, login):
 
-            return web.json_response(await dbo.get_employee_achievements(context, login), status=200)
+            return web.json_response(await dbo.get_employee_role(context, login), status=200)
 
         else:
             return web.json_response(
@@ -180,8 +262,7 @@ async def get_all_rating(request: web.Request, context: AppContext) -> web.Respo
 
 async def get_department_rating(request: web.Request, context: AppContext) -> web.Response:
     try:
-        data = request.match_info['data']
-        department = data['department']
+        department = request.match_info['data']
         return web.json_response(await dbo.get_department_rating(context, department))
     except KeyError:
         return web.json_response(
@@ -195,8 +276,7 @@ async def get_department_rating(request: web.Request, context: AppContext) -> we
 
 async def get_personal_rating(request: web.Request, context: AppContext) -> web.Response:
     try:
-        data = request.match_info['data']
-        login = data['login']
+        login = request.match_info['data']
         return web.json_response(await dbo.get_personal_rating(context, login))
     except KeyError:
         return web.json_response(
@@ -208,11 +288,14 @@ async def get_personal_rating(request: web.Request, context: AppContext) -> web.
         )
 
 
+# TODO: Протестить, по-моему там не читается вход
 async def get_personal_rating_in_department(request: web.Request, context: AppContext) -> web.Response:
     try:
-        data = request.match_info['data']
-        login = data['login']
-        department = data['department']
+        print(request.rel_url)
+        print(request.rel_url.query)
+        login = request.rel_url.query['login']
+        department = request.rel_url.query['department']
+        print(login, department)
         return web.json_response(await dbo.get_personal_rating_in_department(context, login, department))
     except KeyError:
         return web.json_response(

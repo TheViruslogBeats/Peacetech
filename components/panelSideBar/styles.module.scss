@@ -1,0 +1,40 @@
+.sideBar {
+  box-sizing: border-box;
+  width: 4rem;
+  height: 760px;
+  background: linear-gradient(
+    179.8deg,
+    #34b2e5 0.18%,
+    rgba(52, 178, 229, 0) 94.17%
+  );
+  border-radius: 16px;
+  margin-right: 2rem;
+  padding: 14px;
+  padding-top: 58px;
+}
+
+.button {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  & svg {
+    width: 25px;
+    height: 25px;
+  }
+  background-color: unset;
+  transition: .3s ease-in-out background, .3s ease-in-out box-shadow;
+  &:hover {
+    background: #2c80ff;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.25);
+  }
+  &.activeBTN {
+    background: #0066ff;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.25);
+    &:hover {
+      background: #2c80ff;
+      box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.25);
+    }
+  }
+}

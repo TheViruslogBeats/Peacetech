@@ -1,0 +1,104 @@
+.panelTopBar {
+  z-index: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.userInfo {
+  background: linear-gradient(
+    265.91deg,
+    #003891 -20.2%,
+    rgba(0, 93, 240, 0) 61.59%
+  );
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 0 20rem;
+  padding-right: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userInfoContainer {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & div {
+    display: flex;
+    & svg {
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.125);
+      }
+    }
+    & p {
+      position: relative;
+      top: 30px;
+      left: -30px;
+      background-color: red;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+    }
+  }
+  & h3 {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  & img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: 2rem;
+  }
+}
+
+.topBarSearch {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+  & input {
+    height: 36px;
+    width: 400px;
+    border-radius: 16px;
+    background-color: rgba(176, 176, 176, 0.39);
+    box-sizing: border-box;
+    padding: 0 1rem;
+    padding-right: 2.5rem;
+  }
+  & svg {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    left: -35px;
+  }
+}
+
+.panelSideBarButton {
+  & button {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: #34b2e5;
+    & svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

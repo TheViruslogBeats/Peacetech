@@ -1,0 +1,87 @@
+.container {
+  width: 1777px;
+  height: 725px;
+}
+
+.miniContainer {
+  width: 1400px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.mainContainer {
+  width: 1400px;
+  height: 483px;
+  border-radius: 16px;
+  margin-bottom: 28px;
+}
+
+.infoBlock {
+  width: 325px;
+  height: 350px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.secondMC {
+  display: flex;
+}
+
+.hr {
+  background-color: black;
+  width: 100%;
+  height: 2px;
+  box-sizing: border-box;
+}
+
+.Card {
+  width: 260px;
+  height: 90px;
+  padding: 8px;
+  border-radius: 16px;
+  margin-right: 25px;
+  box-sizing: border-box;
+  &:last-child {
+    margin-right: 0;
+  }
+  & p {
+    font-weight: 700;
+    font-size: 20px; 
+  }
+
+}
+
+.CardInfo {
+  display: flex;
+  align-items: center;
+  height: 43px;
+  & h3 {
+    margin-left: 1rem;
+  }
+}
+
+.SecondCard {
+  width: 260px;
+  height: 90px;
+  border-radius: 16px;
+  margin-right: 25px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  &:last-child {
+    margin-right: 0;
+  }
+  & p {
+    font-weight: 700;
+    font-size: 20px; 
+    padding-left: 2rem;
+  }
+  & svg {
+    width: 90px;
+    height: 90px;
+    margin-left: 2.5rem;
+    background-color: hsla(51, 100%, 27%, 0);
+  }
+}

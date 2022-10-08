@@ -1,0 +1,67 @@
+.loginModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #323232;
+  padding: 36px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+}
+
+.error {
+  padding: 0.25rem 1rem;
+  background-color: rgba(255, 0, 0, 0.103);
+  border: solid 1px red;
+  margin: 1rem 0;
+  & h1 {
+    font-weight: 300;
+    color: red;
+  }
+}
+
+.blackBox {
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  & button {
+    background-color: #00a5e8;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--LP-color-1);
+    padding: 0.5rem 0;
+    border-radius: 16px;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  & span {
+    font-size: 20px;
+    font-weight: 100;
+    margin-left: 0.5rem;
+  }
+  & input {
+    background-color: unset !important;
+    border-bottom: 1px solid #fff;
+    width: 313px;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    font-size: 18px;
+    &:-internal-autofill-selected {
+      background-color: #00000000 !important;
+    }
+  }
+}

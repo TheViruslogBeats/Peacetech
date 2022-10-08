@@ -1,0 +1,41 @@
+.containerFour {
+  width: 1288px;
+  height: 529px;
+  text-align: center;
+  margin: 0 auto;
+  & h1 {
+    font-weight: 500;
+    font-size: 50px;
+    margin-bottom: 5rem;
+  }
+}
+
+.comandContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.personContainer {
+  width: 223px;
+  height: 369px;
+  background: url(../../../public/LPP/profileBG.png) no-repeat;
+  background-position: center 0%;
+  padding-top: 2rem ;
+  & img {
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 2rem;
+  }
+  & h4 {
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  & p {
+    font-weight: 100;
+    font-size: 24px;
+  }
+}

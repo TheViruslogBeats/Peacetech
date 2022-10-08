@@ -12,7 +12,69 @@ def wrap_handler(handler, context):
 
 
 def setup_routes(app: web.Application, ctx: AppContext) -> None:
-    pass
+    app.router.add_post(
+        '/authentication',
+        wrap_handler(
+            handles.authentication_handle,
+            ctx,
+        ),
+    )
+    app.router.add_post(
+        '/get_employee_achievements',
+        wrap_handler(
+            handles.get_employee_achievements,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/create_wallet/{data}',
+        wrap_handler(
+            handles.create_wallet,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_employee_role/{data}',
+        wrap_handler(
+            handles.get_employee_role,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_wallet/{data}',
+        wrap_handler(
+            handles.get_wallet,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_all_rating',
+        wrap_handler(
+            handles.get_all_rating,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_department_rating/{data}',
+        wrap_handler(
+            handles.get_department_rating,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_personal_rating/{data}',
+        wrap_handler(
+            handles.get_personal_rating,
+            ctx,
+        ),
+    )
+    app.router.add_get(
+        '/get_personal_rating_in_department/{data}',
+        wrap_handler(
+            handles.get_personal_rating_in_department,
+            ctx,
+        ),
+    )
     """
     app.router.add_post(
         '/imports',

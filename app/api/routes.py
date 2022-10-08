@@ -34,16 +34,16 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
         ),
     )
     app.router.add_get(
-        '/get_employee_role/{data}',
+        '/get_wallet/{data}',
         wrap_handler(
-            handles.get_employee_role,
+            handles.get_wallet,
             ctx,
         ),
     )
     app.router.add_get(
-        '/get_wallet/{data}',
+        '/get_employee_role/{data}',
         wrap_handler(
-            handles.get_wallet,
+            handles.get_employee_role,
             ctx,
         ),
     )

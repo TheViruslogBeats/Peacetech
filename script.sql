@@ -47,6 +47,7 @@ create table task
 create table all_achievements
     (
         id serial,
+        name varchar,
         description varchar,
         achieve_points float,
         primary key (id)

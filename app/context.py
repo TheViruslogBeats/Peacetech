@@ -19,6 +19,7 @@ class AppContext:
             min_size=1,
             max_size=3
         )
+
     async def on_shutdown(self, app=None):
         if self.db:
             await self.db.close()

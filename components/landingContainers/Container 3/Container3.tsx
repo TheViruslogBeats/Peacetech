@@ -37,23 +37,23 @@ const Container3 = () => {
     >
       <h1>Цели проекта</h1>
       <div className={styles.containerWN}>
-        <p>Разработай веб-сервис, направленный на решение следующих задач</p>
+        <p>Разработать веб-сервис, направленный на решение следующих задач</p>
         <Image src={imageNUM} />
       </div>
       <div className={styles.containerWN}>
         <Image src={imageNUM2} />
-        <p>Разработай веб-сервис, направленный на решение следующих задач</p>
+        <p>Работа с мотивацией и вовлеченностью сотрудников</p>
       </div>
       <div className={styles.containerWN}>
-        <p>Разработай веб-сервис, направленный на решение следующих задач</p>
+        <p>Создание профессиональных комьюнити</p>
         <Image src={imageNUM3} />
       </div>
       <div className={styles.containerWN}>
         <Image src={imageNUM4} />
-        <p>Разработай веб-сервис, направленный на решение следующих задач</p>
+        <p>Формирование культурного фундамента внутри компании</p>
       </div>
       <div className={styles.containerWN}>
-        <p>Разработай веб-сервис, направленный на решение следующих задач</p>
+        <p>Развитие HR-Brand как ИТ-компании</p>
         <Image src={imageNUM5} width={142} />
       </div>
     </motion.div>

@@ -17,7 +17,7 @@ class AppContext:
             database='rizyfbtd',
             port=5432,
             min_size=1,
-            max_size=3
+            max_size=2
         )
 
     async def on_shutdown(self, app=None):

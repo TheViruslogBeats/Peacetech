@@ -222,7 +222,7 @@ async def get_count_of_tasks(request: web.Request, context: AppContext) -> web.R
         login = request.match_info['data']
         if login is None:
             raise KeyError
-        if dbo.employee_in_database(context, login):
+        if await dbo.employee_in_database(context, login):
 
             return web.json_response(await dbo.get_count_of_employee_tasks(context, login), status=200)
 
@@ -248,7 +248,7 @@ async def create_wallet(request: web.Request, context: AppContext) -> web.Respon
     try:
         login = request.match_info['data']
 
-        if dbo.employee_in_database(context, login):
+        if await dbo.employee_in_database(context, login):
 
             wallet = await blockchain_api.gen_wallet()
 
@@ -314,7 +314,7 @@ async def get_wallet_balance(request: web.Request, context: AppContext) -> web.R
         if await dbo.employee_in_database(context, login):
             public_key = await dbo.get_public_key(context, login)
             return web.json_response(
-                blockchain_api.get_wallet_balance(public_key),
+                blockchain_api.get_wallet_balance(public_key['public_key']),
                 status=200
             )
 
@@ -342,7 +342,7 @@ async def get_wallet_history(request: web.Request, context: AppContext) -> web.R
         if await dbo.employee_in_database(context, login):
             public_key = await dbo.get_public_key(context, login)
             return web.json_response(
-                blockchain_api.get_wallet_history(public_key),
+                blockchain_api.get_wallet_history(public_key['public_key']),
                 status=200
             )
 
@@ -369,8 +369,9 @@ async def get_wallet_nft_balance(request: web.Request, context: AppContext) -> w
         login = request.match_info['data']
         if await dbo.employee_in_database(context, login):
             public_key = await dbo.get_public_key(context, login)
+            wallet_nft_balance = blockchain_api.get_wallet_nft_balance(public_key.get('public_key', None))
             return web.json_response(
-                blockchain_api.get_wallet_nft_balance(public_key),
+                wallet_nft_balance,
                 status=200
             )
 
@@ -395,7 +396,6 @@ async def get_wallet_nft_balance(request: web.Request, context: AppContext) -> w
 async def get_employee_role(request: web.Request, context: AppContext) -> web.Response:
     try:
         login = request.match_info['data']
-        print(login)
         if await dbo.employee_in_database(context, login):
 
             return web.json_response(await dbo.get_employee_role(context, login), status=200)
@@ -418,9 +418,57 @@ async def get_employee_role(request: web.Request, context: AppContext) -> web.Re
         )
 
 
+async def get_employee_status(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        login = request.match_info['data']
+        if await dbo.employee_in_database(context, login):
+
+            return web.json_response(await dbo.get_employee_status(context, login), status=200)
+
+        else:
+            return web.json_response(
+                {
+                    "code": 404,
+                    "message": "Employee not found"
+                },
+                status=404
+            )
+    except KeyError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+
 async def get_all_rating(request: web.Request, context: AppContext) -> web.Response:
     try:
         return web.json_response(await dbo.get_all_rating(context))
+    except SyntaxError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+
+async def get_shop(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        return web.json_response(await dbo.get_shop(context))
+    except SyntaxError:
+        return web.json_response(
+            {
+                "code": 400,
+                "message": "Validation Failed"
+            },
+            status=400
+        )
+async def get_greenhouse(request: web.Request, context: AppContext) -> web.Response:
+    try:
+        return web.json_response(await dbo.get_greenhouse(context))
     except SyntaxError:
         return web.json_response(
             {
@@ -462,11 +510,8 @@ async def get_personal_rating(request: web.Request, context: AppContext) -> web.
 # TODO: Протестить, по-моему там не читается вход
 async def get_personal_rating_in_department(request: web.Request, context: AppContext) -> web.Response:
     try:
-        print(request.rel_url)
-        print(request.rel_url.query)
         login = request.rel_url.query['login']
         department = request.rel_url.query['department']
-        print(login, department)
         return web.json_response(await dbo.get_personal_rating_in_department(context, login, department))
     except KeyError:
         return web.json_response(

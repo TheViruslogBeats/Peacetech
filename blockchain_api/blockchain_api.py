@@ -140,7 +140,7 @@ def get_wallet_nft_balance(public_key: str) -> Union[list, Exception]:
     ]
     """
     try:
-        response = httpx.get(f'{base_url}/v1/wallets/{public_key}/nft/balance')
+        response = httpx.get(f'{base_url}/v1/wallets/{public_key}/nft/balance', timeout=15)
     except Exception as e:
         return e
     else:

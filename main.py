@@ -4,9 +4,10 @@ import argparse
 from aiohttp import web
 from app.api import routes
 from app.context import AppContext
+
+
 async def create_app():
     app = web.Application()
-
     ctx = AppContext(secrets_dir='secrets')
 
     app.on_startup.append(ctx.on_startup)

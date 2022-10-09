@@ -17,6 +17,21 @@ async def get_employee_info(context: AppContext, login):
     return {'name': employee['name'], 'surname': employee['surname'], 'lastname': employee['lastname']}
 
 
+async def get_greenhouse(context: AppContext):
+    script = f"select description, price, award, authors_login from greenhouse"
+
+    greenhouse = await context.db.fetch(script)
+
+    answer = {}
+    place = 0
+    if len(greenhouse) > 0:
+        for plant in greenhouse:
+            place += 1
+            answer.update({place: {'login': plant['login'], 'score': plant['score']}})
+
+    return answer
+
+
 async def get_public_key(context: AppContext, login):
     script = f"select public_key from employee where login = '{login}'"
     employee = (await context.db.fetch(script))[0]
@@ -51,6 +66,20 @@ async def get_employee_role(context: AppContext, login):
     return {'role': (await context.db.fetch(script))[0]['role']}
 
 
+async def get_employee_status(context: AppContext, login):
+    script = f"""
+                    select a.name as status from all_achievements a
+                    inner join employee_achievements ea on a.id = ea.achieve_id
+                    inner join employee e on e.login = ea.employee_login
+                    where e.login = '{login}'
+              """
+    status = await context.db.fetch(script)
+    if len(status) > 0:
+        return {'status': status[0]['status']}
+    else:
+        return {'status': 'Статус отсутствует'}
+
+
 async def get_all_rating(context: AppContext):
     script = f"""
                  select e.login, sum(a.achieve_points) as score
@@ -68,6 +97,20 @@ async def get_all_rating(context: AppContext):
         for employee in rating:
             place += 1
             answer.update({place: {'login': employee['login'], 'score': employee['score']}})
+
+    return answer
+
+
+async def get_shop(context: AppContext):
+    script = f"""
+                 select goods_id, description, price from shop
+             """
+    shop = await context.db.fetch(script)
+
+    answer = {}
+    if len(shop) > 0:
+        for goods in shop:
+            answer.update({goods['goods_id']: {'description': goods['description'], 'price': goods['price']}})
 
     return answer
 
@@ -154,18 +197,16 @@ async def get_employee_tasks(context: AppContext, login):
     script = f"""select id, description, award, administrator_login, progress from task 
                  where employee_login = '{login}'"""
     tasks = await context.db.fetch(script)
-    answer = {}
+    answer = []
     if len(tasks) > 0:
         for task in tasks:
-            answer.update(
-                {
-                    task['id']: {
-                        'description': task['description'],
-                        'award': task['award'],
-                        'administrator_login': task['administrator_login'],
-                        'progress': task['progress']
-                    }
-                }
+            answer.append(
+                {'id': task['id'],
+                 'description': task['description'],
+                 'award': task['award'],
+                 'administrator_login': task['administrator_login'],
+                 'progress': task['progress']
+                 }
             )
     return answer
 
@@ -175,7 +216,7 @@ async def get_count_of_employee_tasks(context: AppContext, login):
                  where employee_login = '{login}'
                  group by employee_login"""
     count = await context.db.fetch(script)
-    return {'count': count if len(count) > 0 else 0}
+    return {'count': count[0]['count'] if len(count) > 0 else 0}
 
 
 async def find_employee_achievements(context: AppContext, login):

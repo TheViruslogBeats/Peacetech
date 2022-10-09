@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 28px;
+  margin-right: 28px;
 }
 
 .mainContainer {
@@ -16,6 +17,33 @@
   height: 483px;
   border-radius: 16px;
   margin-bottom: 28px;
+  padding: 38px;
+  margin-right: 28px;
+  box-sizing: border-box;
+  & h2 {
+    margin-left: 1rem;
+    font-weight: 600;
+    font-size: 30px;
+  }
+  & div {
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    margin-left: 4rem;
+    & div {
+      display: block;
+      margin-left: 6rem;
+      & p {
+        margin-bottom: 4rem;
+        width: 836px;
+        font-weight: 400;
+        font-size: 18px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 }
 
 .infoBlock {
@@ -23,10 +51,59 @@
   height: 350px;
   border-radius: 16px;
   margin-bottom: 1rem;
+  box-sizing: border-box;
+  & h3 {
+    box-sizing: border-box;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 1rem 0;
+    text-align: center;
+  }
+}
+
+.infoList {
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 58px);
+  display: flex;
+  flex-direction: column;
+}
+
+.Task {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  background: #ba9100;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 8px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.userInfoList {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  & img {
+    margin-left: 0.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+  & div {
+    margin-left: 1rem;
+  }
 }
 
 .secondMC {
   display: flex;
+  width: 1400px;
+  margin-right: 28px;
 }
 
 .hr {
@@ -39,7 +116,6 @@
 .Card {
   width: 260px;
   height: 90px;
-  padding: 8px;
   border-radius: 16px;
   margin-right: 25px;
   box-sizing: border-box;
@@ -47,16 +123,20 @@
     margin-right: 0;
   }
   & p {
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
     font-weight: 700;
-    font-size: 20px; 
+    font-size: 20px;
   }
-
 }
 
 .CardInfo {
   display: flex;
   align-items: center;
   height: 43px;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
   & h3 {
     margin-left: 1rem;
   }
@@ -75,7 +155,7 @@
   }
   & p {
     font-weight: 700;
-    font-size: 20px; 
+    font-size: 20px;
     padding-left: 2rem;
   }
   & svg {
@@ -84,4 +164,57 @@
     margin-left: 2.5rem;
     background-color: hsla(51, 100%, 27%, 0);
   }
+}
+.modalMagazine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  transform: translate(-50%,-50%);
+  background: linear-gradient(99.5deg, #a500c0 -8.06%, #20117c 77.13%);
+  border-radius: 16px;
+  padding: 2rem;
+  flex-direction: column;
+  & h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  & ul {
+    list-style: none;
+    & li {
+      display: flex;
+      justify-content: space-between;
+      margin: 1.5rem 0;
+      & div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-right: 2rem;
+        & img {
+          width: 64px;
+        } 
+        & button {
+          width: 120px;
+          background-color: blue;
+          color: white;
+          font-size: 16px;
+          border-radius: 16px;
+          padding:.5rem 1rem;
+        }
+      }
+    }
+  }
+}
+
+.modalGarden {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1200px;
+  transform: translate(-50%,-50%);
+  background: linear-gradient(99.5deg, #a500c0 -8.06%, #20117c 77.13%);
+  border-radius: 16px;
+  padding: 2rem;
+  flex-direction: column;
+  
 }

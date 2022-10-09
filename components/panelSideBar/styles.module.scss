@@ -18,6 +18,9 @@
   height: 35px;
   border-radius: 8px;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   & svg {
     width: 25px;

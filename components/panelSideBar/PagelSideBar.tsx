@@ -1,5 +1,8 @@
 import styles from "./styles.module.scss";
 import { BiWallet } from "react-icons/bi";
+import { GiBackwardTime } from "react-icons/gi";
+import { HiShoppingCart } from "react-icons/hi";
+import { TbArrowsDoubleNeSw } from "react-icons/tb";
 
 const PagelSideBar = () => {
   return (
@@ -8,13 +11,13 @@ const PagelSideBar = () => {
         <BiWallet />
       </button>
       <button className={styles.button}>
-        <BiWallet />
+        <GiBackwardTime />
       </button>
       <button className={styles.button}>
-        <BiWallet />
+        <HiShoppingCart />
       </button>
       <button className={styles.button}>
-        <BiWallet />
+        <TbArrowsDoubleNeSw />
       </button>
     </div>
   );

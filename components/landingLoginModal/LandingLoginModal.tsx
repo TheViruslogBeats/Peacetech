@@ -1,13 +1,14 @@
 import styles from "./styles.module.scss";
 import landingPage from "../../states/landingPage";
 import { observer } from "mobx-react-lite";
-import svg from "../../public/vercel.svg";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const LandingLoginModal = () => {
   const [error, setError] = useState(false);
+  const [auth, setAuth] = useState(false)
+  const router = useRouter()
   return (
     <>
       <motion.div
@@ -68,7 +69,7 @@ const LandingLoginModal = () => {
               let response = await landingPage.sendLogin();
               if (response) {
                 await landingPage.setLM(false);
-                window.location.href = "https://iotmirtech.ru/panel";
+                router.push('/panel')
               } else {
                 setError(true)
                 setTimeout(() => {

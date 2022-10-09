@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import axios from "axios";
-let url = "http://e8d8-46-242-15-178.ngrok.io";
+import Api from "./api";
+
+import { url } from "./url";
 
 interface loginForm {
   login: string;
@@ -35,6 +37,7 @@ class LandingPageState {
       ...this.loginForm,
     });
     if (response.status === 200) {
+      localStorage.setItem("login", this.loginForm.login);
       return true;
     } else {
       return false;

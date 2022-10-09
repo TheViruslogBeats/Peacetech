@@ -12,9 +12,10 @@ services:
   postgres:
     image: postgres:14.1-alpine
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: " "
-      POSTGRES_DB: "MyLittleYandexDisk"
+      POSTGRES_USER: "rizyfbtd"
+      POSTGRES_PASSWORD: "mtgn_9cgEWDalyPDg3ka4utR0TfVvRF2"
+      POSTGRES_DB: "rizyfbtd"
+      POSTGRES_HOST: "mouse.db.elephantsql.com"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     ports:
       - "5432:5432"
